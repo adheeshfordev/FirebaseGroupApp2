@@ -47,4 +47,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="return_to_products">Browse Products</string>
 </resources>
