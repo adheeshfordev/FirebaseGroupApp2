@@ -1,9 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CheckoutActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/constraintLayout"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/shippingDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/shipping_details"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:labelFor="@id/name"
+            android:text="@string/label_for_name" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="180dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/name_hint"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:labelFor="@id/email"
+            android:text="@string/label_for_email" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="180dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/email_hint"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:labelFor="@id/phone"
+            android:text="@string/label_for_phone" />
+
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="180dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/phone_hint"
+            android:importantForAutofill="no"
+            android:inputType="phone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:labelFor="@id/street"
+            android:text="@string/label_for_street" />
+
+        <EditText
+
+            android:id="@+id/street"
+            android:layout_width="180dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:hint="@string/street_hint"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:labelFor="@id/city"
+            android:text="@string/label_for_city" />
+
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="180dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:hint="@string/city_hint"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@id/country" />
+
+        <EditText
+            android:id="@+id/country"
+            android:layout_width="180dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/country_hint"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/cardDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/card_details"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@id/card" />
+
+        <EditText
+            android:id="@+id/card"
+            android:layout_width="390dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:hint="@string/card_number_hint"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:labelFor="@id/expiry"
+            android:text="@string/label_for_expiry" />
+
+        <EditText
+            android:id="@+id/expiry"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:ems="12"
+            android:hint="@string/expiry_date_hint"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLength="4" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:labelFor="@id/CVV"
+            android:text="@string/label_for_cvv" />
+
+        <EditText
+            android:id="@+id/CVV"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="14dp"
+            android:ems="10"
+            android:hint="@string/cvv_hint"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLength="4" />
+
+        <Button
+            android:id="@+id/checkoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:hint="@string/checkout_submit" />
+    </LinearLayout>
+
+
+</ScrollView>

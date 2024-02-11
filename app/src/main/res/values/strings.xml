@@ -49,5 +49,24 @@
     <string name="title_notifications">Notifications</string>
     <string name="buy_now">Buy Now</string>
     <string name="return_to_products">Browse Products</string>
+    <string name="label_for_cvv">CVV</string>
+    <string name="shipping_details">Shipping Details</string>
+    <string name="label_for_name">Name</string>
+    <string name="name_hint">Please enter your name</string>
+    <string name="label_for_email">Email</string>
+    <string name="email_hint">Please enter Email</string>
+    <string name="label_for_phone">Phone</string>
+    <string name="phone_hint">Please enter phone</string>
+    <string name="label_for_street">Street</string>
+    <string name="street_hint">Enter street</string>
+    <string name="label_for_city">city</string>
+    <string name="city_hint">Please enter city</string>
+    <string name="country_hint">Please enter country</string>
+    <string name="card_details">card details</string>
+    <string name="card_number_hint">please enter card number</string>
+    <string name="label_for_expiry">expiry</string>
+    <string name="expiry_date_hint">please enter expiry date</string>
+    <string name="cvv_hint">please enter cvv</string>
+    <string name="checkout_submit">checkout</string>
     <string name="trinket_store">Trinket Store</string>
 </resources>
