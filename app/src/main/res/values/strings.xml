@@ -52,7 +52,7 @@
     <string name="label_for_cvv">CVV</string>
     <string name="shipping_details">Shipping Details</string>
     <string name="label_for_name">Name</string>
-    <string name="name_hint">Please enter your nsme</string>
+    <string name="name_hint">Please enter your name</string>
     <string name="label_for_email">Email</string>
     <string name="email_hint">Please enter Email</string>
     <string name="label_for_phone">Phone</string>
