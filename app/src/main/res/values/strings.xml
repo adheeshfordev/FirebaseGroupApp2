@@ -47,6 +47,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="return_to_products">Browse Products</string>
     <string name="label_for_cvv">CVV</string>
     <string name="shipping_details">Shipping Details</string>
     <string name="label_for_name">Name</string>
