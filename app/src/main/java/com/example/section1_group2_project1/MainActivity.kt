@@ -1,5 +1,6 @@
 package com.example.section1_group2_project1
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,9 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val i = Intent(this, ProductActivity::class.java)
+        startActivity(i)
     }
 
 }
