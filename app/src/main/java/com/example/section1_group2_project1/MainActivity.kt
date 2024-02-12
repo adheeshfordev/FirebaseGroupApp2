@@ -10,6 +10,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import com.example.section1_group2_project1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -23,8 +24,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val i = Intent(this, ProductActivity::class.java)
-        startActivity(i)
+        val goToProducts:Button = findViewById<Button>(R.id.goToProducts)
+        goToProducts.setOnClickListener {
+            val i = Intent(this, ProductActivity::class.java)
+            startActivity(i)
+        }
     }
 
 }

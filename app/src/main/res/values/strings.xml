@@ -69,4 +69,9 @@
     <string name="cvv_hint">please enter cvv</string>
     <string name="checkout_submit">checkout</string>
     <string name="trinket_store">Trinket Store</string>
+    <string name="trinket_store_logo">Trinket Store Logo</string>
+    <string name="product_image">Product Image</string>
+    <string name="view_details">View Details</string>
+    <string name="add_to_checkout">Add to Checkout</string>
+    <string name="explore_our_products">Explore our Products</string>
 </resources>
