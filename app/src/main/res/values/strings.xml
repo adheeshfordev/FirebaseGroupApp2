@@ -59,7 +59,7 @@
     <string name="phone_hint">Please enter phone</string>
     <string name="label_for_street">Street</string>
     <string name="street_hint">Enter street</string>
-    <string name="label_for_city">city</string>
+    <string name="label_for_city">City</string>
     <string name="city_hint">Please enter city</string>
     <string name="country_hint">Please enter country</string>
     <string name="card_details">card details</string>
@@ -74,4 +74,13 @@
     <string name="view_details">View Details</string>
     <string name="add_to_checkout">Add to Checkout</string>
     <string name="explore_our_products">Explore our Products</string>
+    <string name="country">Country</string>
+    <string name="title_activity_cart">CartActivity</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="go_to_checkout">Go to Checkout</string>
+    <string name="cart">Cart</string>
+    <string name="remove_from_cart">Remove from Cart</string>
+    <string name="go_to_cart">Go to Cart</string>
+    <string name="shop_our_products">Shop Our Products</string>
+    <string name="card">Card</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.firebaseprojectgroup2
+package com.example.firebasegroupapp2
 
 import org.junit.Test
 

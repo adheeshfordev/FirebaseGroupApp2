@@ -1,4 +1,4 @@
-package com.example.firebaseprojectgroup2
+package com.example.firebasegroupapp2
 
 import android.content.Context
 import com.bumptech.glide.Glide

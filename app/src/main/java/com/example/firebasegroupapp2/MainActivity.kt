@@ -1,15 +1,13 @@
-package com.example.firebaseprojectgroup2
+package com.example.firebasegroupapp2
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.ui.AppBarConfiguration
 import android.widget.Button
-import com.example.firebaseprojectgroup2.databinding.ActivityMainBinding
+import com.example.firebasegroupapp2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val goToProducts:Button = findViewById<Button>(R.id.goToProducts)
+        val goToProducts:Button = findViewById(R.id.goToProducts)
         goToProducts.setOnClickListener {
             val i = Intent(this, ProductActivity::class.java)
             startActivity(i)

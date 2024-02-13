@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.firebaseprojectgroup2"
+    namespace = "com.example.firebasegroupapp2"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.firebaseprojectgroup2"
+        applicationId = "com.example.firebasegroupapp2"
         minSdk = 27
         targetSdk = 34
         versionCode = 1
@@ -64,6 +64,8 @@ dependencies {
     implementation("com.google.firebase:firebase-storage")
 
     implementation ("com.firebaseui:firebase-ui-database:8.0.2")
+    implementation ("com.firebaseui:firebase-ui-firestore:8.0.2")
+    implementation ("com.firebaseui:firebase-ui-auth:8.0.2")
     implementation ("com.firebaseui:firebase-ui-storage:8.0.2")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")

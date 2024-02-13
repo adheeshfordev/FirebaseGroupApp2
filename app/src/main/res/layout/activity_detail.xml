@@ -14,13 +14,13 @@
         <ImageView
             android:id="@+id/Img"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/app_name" />
 
         <TextView
 
-            android:id="@+id/Brand"
+            android:id="@+id/name"
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_gravity="center_horizontal"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/Price"
+            android:id="@+id/price"
 
             android:textStyle="bold"
             android:textSize="16sp"
@@ -36,21 +36,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
 
-        <TextView
-            android:id="@+id/Desc"
-
-            android:padding="10dp"
-            android:textAlignment="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
-
         <Button
-            android:id="@+id/addToCheckout"
+            android:id="@+id/addToCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/buy_now" />
+            android:text="@string/add_to_cart" />
         <Button
             android:id="@+id/returnToProducts"
             android:layout_width="wrap_content"
