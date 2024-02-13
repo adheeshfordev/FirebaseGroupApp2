@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Section1_Group2_Project1</string>
+    <string name="app_name">Firebase Project Group 2</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

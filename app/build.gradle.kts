@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.section1_group2_project1"
+    namespace = "com.example.firebaseprojectgroup2"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.section1_group2_project1"
+        applicationId = "com.example.firebaseprojectgroup2"
         minSdk = 27
         targetSdk = 34
         versionCode = 1

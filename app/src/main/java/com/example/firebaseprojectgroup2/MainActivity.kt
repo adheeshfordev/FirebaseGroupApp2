@@ -1,17 +1,11 @@
-package com.example.section1_group2_project1
+package com.example.firebaseprojectgroup2
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
-import com.example.section1_group2_project1.databinding.ActivityMainBinding
+import com.example.firebaseprojectgroup2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Section1_Group2_Project1"
+rootProject.name = "FirebaseProjectGroup2"
 include(":app")
  

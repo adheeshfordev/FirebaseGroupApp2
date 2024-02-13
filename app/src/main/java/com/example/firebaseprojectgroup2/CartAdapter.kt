@@ -1,4 +1,4 @@
-package com.example.section1_group2_project1
+package com.example.firebaseprojectgroup2
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
