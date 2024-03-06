@@ -71,5 +71,6 @@ class Common {
                     Log.e("FirebaseError", "Could not parse cart data in Firebase")
                 }
         }
+
     }
 }
