@@ -7,9 +7,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import java.util.UUID
+
 
 class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,11 +18,13 @@ class DetailActivity : AppCompatActivity() {
         val productImage: ImageView = findViewById(R.id.Img)
         val nameTxt: TextView = findViewById(R.id.name)
         val priceTxt: TextView = findViewById(R.id.price)
+        val descriptionTxt: TextView = findViewById(R.id.description)
 
         val theImage = intent.getStringExtra("productImg")
         val name = intent.getStringExtra("name")
         val pid = intent.getStringExtra("pid") ?: "1"
         val price = intent.getDoubleExtra("price", 0.00)
+        val description = intent.getStringExtra("description")
         if (!theImage.isNullOrBlank()) {
             if (theImage.indexOf("gs://") > -1) {
                 val storageReference = FirebaseStorage.getInstance()
@@ -36,6 +37,7 @@ class DetailActivity : AppCompatActivity() {
         }
         nameTxt.text = name
         priceTxt.text = price.toString()
+        descriptionTxt.text = description
 
         val btnToCart: Button = findViewById(R.id.addToCart)
         btnToCart.setOnClickListener {
