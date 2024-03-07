@@ -3,6 +3,7 @@ package com.example.firebasegroupapp2
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,17 +23,28 @@ class CartActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
+        var uid = ""
         if (currentUser == null) {
             val i = Intent(this, ProductActivity::class.java)
             startActivity(i)
+        } else {
+            uid = currentUser.uid
         }
 
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_cart)
 
-        val query = FirebaseDatabase.getInstance().reference.child("trinketStore").child("cartItem")
+        val query = FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/cartItems")
         val options = FirebaseRecyclerOptions.Builder<CartItem>().setQuery(query, CartItem::class.java).build()
         adapter = CartAdapter(options)
+
+        FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details").get().addOnSuccessListener { snapshot ->
+            val cart = snapshot.getValue(Cart::class.java)
+            val totalTxt = findViewById<TextView>(R.id.total)
+            val totalItemsTxt = findViewById<TextView>(R.id.totalItems)
+            "Total Items: ${String.format("%.2f", cart?.total)} CAD".also { totalTxt.text = it }
+            "Grand Total: ${String.format("%d", cart?.qty)}".also { totalItemsTxt.text = it }
+        }
 
         val rView: RecyclerView = findViewById(R.id.cartRecyclerView)
 

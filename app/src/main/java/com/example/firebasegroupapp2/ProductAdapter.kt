@@ -1,7 +1,6 @@
 package com.example.firebasegroupapp2
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -11,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
 
 import com.google.firebase.storage.FirebaseStorage
-import java.util.UUID
 
 class ProductAdapter(options: FirebaseRecyclerOptions<Product>) :
     FirebaseRecyclerAdapter<Product, ProductAdapter.MyViewHolder>(options) {
+    private lateinit var auth: FirebaseAuth
     class MyViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.product_row_layout, parent, false)) {
         val productImage: ImageView = itemView.findViewById(R.id.productImage)
@@ -54,8 +53,8 @@ class ProductAdapter(options: FirebaseRecyclerOptions<Product>) :
         }
         holder.addToCart.setOnClickListener {
             val i = Intent(it.context, CartActivity::class.java)
-
-            Common.addToCart(model)
+            auth = FirebaseAuth.getInstance()
+            Common.addToCart(auth.currentUser?.uid, model)
 
             it.context.startActivity(i)
         }

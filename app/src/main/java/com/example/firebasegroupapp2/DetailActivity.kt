@@ -7,13 +7,22 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 
 
 class DetailActivity : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            val i = Intent(this, ProductActivity::class.java)
+            startActivity(i)
+        }
 
         val productImage: ImageView = findViewById(R.id.Img)
         val nameTxt: TextView = findViewById(R.id.name)
@@ -45,7 +54,7 @@ class DetailActivity : AppCompatActivity() {
             /*Initialized only using the necessary values. !! used as suggested by Android Studio
              to fix warnings*/
             val product = Product(name!!, price, 0, theImage!!, pid, "")
-            Common.addToCart(product)
+            Common.addToCart(auth.currentUser?.uid,product)
             it.context.startActivity(i)
         }
         val returnToProducts: Button = findViewById(R.id.returnToProducts)

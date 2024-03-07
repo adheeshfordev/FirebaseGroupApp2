@@ -3,6 +3,7 @@ package com.example.firebasegroupapp2
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import com.example.firebaseprojectgroup2.Order
@@ -19,9 +20,12 @@ class CheckoutActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
+        var uid = ""
         if (currentUser == null) {
             val i = Intent(this, ProductActivity::class.java)
             startActivity(i)
+        } else {
+            uid = currentUser.uid
         }
 
         val name = findViewById<EditText>(R.id.name)
@@ -32,59 +36,49 @@ class CheckoutActivity : AppCompatActivity() {
         val country = findViewById<EditText>(R.id.country)
 
         //https://kotlinlang.org/docs/strings.html#string-templates
-        val shippingAddress = "${name}, ${street}, ${city}, $country email:${email}, phone: $phone"
+        val shippingAddress = "${name.text}, ${street.text}, ${city.text}, $country.text email:${email.text}, phone: $phone.text"
 
 
         val checkoutBtn: Button = findViewById(R.id.checkoutBtn)
         checkoutBtn.setOnClickListener {
-            val cartRef = FirebaseDatabase.getInstance().reference.child("trinketStore/cart")
+            val cartRef = FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details")
             cartRef.get()
                 .addOnSuccessListener {
                     val cart = it.getValue(Cart::class.java)
+                    val orderId = UUID.randomUUID().toString()
                     val cartItemRef =
-                        FirebaseDatabase.getInstance().reference.child("trinketStore/cartItem")
+                        FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/cartItems")
                     cartItemRef.get().addOnSuccessListener {
                         val cartItemData = it.children
                         for (cartItemSnapshot in cartItemData) {
                             val cartItem: CartItem? =
                                 cartItemSnapshot.getValue(CartItem::class.java)
 
-                            val orderItem = OrderItem(
-                                UUID.randomUUID().toString(), cartItem!!.qty,
+                            val orderItem = OrderItem(orderId,"Product 1",
+                                cartItem!!.qty,
                                 cartItem.price, cartItem.total
                             )
                             FirebaseDatabase.getInstance().reference
-                                .child("trinketStore/orderItem").push().setValue(orderItem)
+                                .child("trinketStore/order/$orderId/orderItem").push().setValue(orderItem)
                             cartItemRef.child(cartItemSnapshot.key!!).removeValue()
 
                         }
                     }.addOnFailureListener {
-
+                        Log.e("Firebase Error", "Issues fetching cart item data from firebase")
                     }
                     val order =
-                        Order(UUID.randomUUID().toString(), cart!!.qty, shippingAddress, cart.total)
-                    FirebaseDatabase.getInstance().reference.child("trinketStore/order")
-                        .push().setValue(order)
+                        Order(uid, orderId, cart!!.qty, shippingAddress, cart.total)
+                    FirebaseDatabase.getInstance().reference.child("trinketStore/order/$orderId/details")
+                        .setValue(order)
                     cartRef.child(it.key!!).removeValue()
                 }.addOnFailureListener {
+                    Log.e("Firebase Error", "Issues fetching cart data from firebase")
 
                 }
             val i = Intent(it.context, CheckoutSuccessfulActivity::class.java)
             it.context.startActivity(i)
         }
 
-        val browseProductBtn: Button = findViewById(R.id.browseProductsBtn)
-        browseProductBtn.setOnClickListener {
 
-            val i = Intent(it.context, ProductActivity::class.java)
-            it.context.startActivity(i)
-        }
-
-        val goToCartBtn: Button = findViewById(R.id.goToCartBtn)
-        goToCartBtn.setOnClickListener {
-
-            val i = Intent(it.context, CartActivity::class.java)
-            it.context.startActivity(i)
-        }
     }
 }

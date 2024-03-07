@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -18,6 +19,8 @@ import com.google.firebase.storage.FirebaseStorage
 
 class CartAdapter(options: FirebaseRecyclerOptions<CartItem>) :
     FirebaseRecyclerAdapter<CartItem, CartAdapter.MyViewHolder>(options) {
+
+    private lateinit var auth: FirebaseAuth
     class MyViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.cart_row_layout, parent, false)) {
         val productImage: ImageView = itemView.findViewById(R.id.productImage)
@@ -38,19 +41,22 @@ class CartAdapter(options: FirebaseRecyclerOptions<CartItem>) :
         val productDb = FirebaseDatabase.getInstance().reference.child("trinketStore/products/$pid")
 
         holder.removeFromCart.setOnClickListener {
+            auth = FirebaseAuth.getInstance()
+            val uid = auth.currentUser?.uid?:""
             val cartItemRef =
-                FirebaseDatabase.getInstance().reference.child("trinketStore/cartItem")
+                FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/cartItems")
             cartItemRef.get().addOnSuccessListener {
                 val cartItemData = it.children
                 for (cartItemSnapshot in cartItemData) {
                     val cartItem = cartItemSnapshot.getValue(CartItem::class.java)
-                    if (cartItem != null && cartItem.cartId == model.cartId) {
+                    if (cartItem != null && cartItem.pid == model.pid) {
                         if (cartItemSnapshot != null && cartItemSnapshot.key != null) {
                             //As suggested by Android Studio
                             cartItemRef.child(cartItemSnapshot.key!!).removeValue()
                         }
                     }
                 }
+                Common.calculateCartTotals(uid)
             }.addOnFailureListener {
 
             }

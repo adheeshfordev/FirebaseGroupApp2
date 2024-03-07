@@ -7,70 +7,59 @@ import java.util.UUID
 //https://www.baeldung.com/kotlin/static-methods#companion-objects
 class Common {
     companion object {
-        fun addToCart(model: Product) {
-            FirebaseDatabase.getInstance().reference.child("trinketStore/cart").get()
-                .addOnSuccessListener {
-                    val cartData = it.value
-                    val cart: Cart?
-                    val cartWrapper: Map<String, Any> = cartData as Map<String, Any>
-                    for ((cartKey, cartMap) in cartWrapper) {
-                        cart = Cart()
-                        for ((field, value) in (cartMap as HashMap<String, Any>)) {
+        fun addToCart(uid: String?, product: Product, qty: Int = 1) {
+            val cartId = UUID.randomUUID().toString()
+            val cartRef =
+                FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details")
+            cartRef.setValue(Cart(cartId, 0.00, uid ?: "", 0))
+            val cartItemRef =
+                FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/cartItems")
 
-                            if (field == "cartId") {
-                                cart.cartId = value as String
-                            }
-                            if (field == "total") {
-                                cart.total = value as Double
-                            }
-                        }
+            cartItemRef.child(product.pid).get().addOnSuccessListener {
+                val cartItem = it.getValue(CartItem::class.java)
+                if (cartItem != null && cartItem.pid.isNotEmpty()) {
 
-                        break
-                    }
+                    val newQty = cartItem.qty + qty
+                    val newTotal = cartItem.total + product.price * qty
+                    cartItem.qty = newQty
+                    cartItem.total = newTotal
+                    cartItemRef.child(product.pid).setValue(cartItem)
 
-                    var productInCart: CartItem? = null
-                    val cartItemRef =
-                        FirebaseDatabase.getInstance().reference.child("trinketStore/cartItem")
-                    cartItemRef.get().addOnSuccessListener {
-                        val cartItemData = it.children
-                        for (cartItemSnapshot in cartItemData) {
-                            val cartItem: CartItem? =
-                                cartItemSnapshot.getValue(CartItem::class.java)
-
-                            if (cartItem != null && cartItem.pid == model.pid) {
-                                productInCart = cartItem
-                                val cartItemKey = cartItemSnapshot.key ?: ""
-                                if (cartItemSnapshot.key != null) {
-                                    cartItemRef.child(cartItemKey).child("qty")
-                                        .setValue(cartItem.qty + 1)
-                                    break
-                                }
-
-                            }
-                            if (productInCart != null) {
-                                break
-                            }
-                        }
-
-                        if (productInCart == null) {
-                            val cartItem = CartItem(
-                                UUID.randomUUID().toString(),
-                                model.price,
-                                1,
-                                model.pid,
-                                model.price
-                            )
-                            cartItemRef.push().setValue(cartItem)
-                        }
-
-                    }.addOnFailureListener {
-                        Log.e("FirebaseError", "Could not parse cart item data in Firebase")
-                    }
-
-                }.addOnFailureListener {
-                    Log.e("FirebaseError", "Could not parse cart data in Firebase")
+                } else {
+                    cartItemRef.child(product.pid).setValue(
+                        CartItem(
+                            cartId,
+                            product.price * qty, qty, product.pid, product.price
+                        )
+                    )
                 }
+                calculateCartTotals(uid)
+            }
         }
 
+        fun calculateCartTotals(
+            uid:String?
+        ) {
+            val cartRef =
+                FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details")
+            val cartItemRef =
+                FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/cartItems")
+            cartItemRef.get().addOnFailureListener {
+                Log.e("Firebase error", "Issue with fetching cart item data")
+            }.addOnSuccessListener {
+                var totalQty = 0
+                var totalPrice = 0.00
+                val cartItems = it.children
+                for (cartItemSnapshot in cartItems) {
+                    val cartItem: CartItem? = cartItemSnapshot.getValue(CartItem::class.java)
+                    if (cartItem != null) {
+                        totalQty += cartItem.qty
+                        totalPrice += cartItem.total
+                    }
+                }
+                cartRef.child("total").setValue(totalPrice)
+                cartRef.child("qty").setValue(totalQty)
+            }
+        }
     }
 }
