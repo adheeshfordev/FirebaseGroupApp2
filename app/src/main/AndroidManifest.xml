@@ -20,6 +20,8 @@
         <activity
             android:name=".CheckoutActivity"
             android:exported="false" />
+        <activity android:name=".CheckoutSuccessfulActivity"
+            android:exported="false" />
         <activity
             android:name=".DetailActivity"
             android:exported="false" />
@@ -29,7 +31,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.FirebaseGroupApp2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
