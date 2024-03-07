@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebasegroupapp2.databinding.ActivityCartBinding
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 class CartActivity : AppCompatActivity() {
@@ -15,8 +16,16 @@ class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
 
     private var adapter: CartAdapter? = null
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            val i = Intent(this, ProductActivity::class.java)
+            startActivity(i)
+        }
 
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_cart)

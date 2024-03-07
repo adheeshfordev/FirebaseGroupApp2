@@ -6,13 +6,23 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import com.example.firebaseprojectgroup2.Order
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.util.UUID
 
 class CheckoutActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
+
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            val i = Intent(this, ProductActivity::class.java)
+            startActivity(i)
+        }
 
         val name = findViewById<EditText>(R.id.name)
         val email = findViewById<EditText>(R.id.email)
