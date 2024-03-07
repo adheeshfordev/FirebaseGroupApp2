@@ -36,7 +36,7 @@ class DetailActivity : AppCompatActivity() {
             }
         }
         nameTxt.text = name
-        priceTxt.text = price.toString()
+        "${String.format("%.2f", price)} CAD".also { priceTxt.text = it }
         descriptionTxt.text = description
 
         val btnToCart: Button = findViewById(R.id.addToCart)
