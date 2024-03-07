@@ -83,4 +83,6 @@
     <string name="go_to_cart">Go to Cart</string>
     <string name="shop_our_products">Shop Our Products</string>
     <string name="card">Card</string>
+    <string name="checkout_successful">Checkout Successful</string>
+    <string name="continue_shopping">Continue Shopping</string>
 </resources>
