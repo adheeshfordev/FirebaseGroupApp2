@@ -6,9 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
-import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.auth.FirebaseAuth
@@ -20,42 +17,13 @@ class ProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
-        auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            loadUI()
-        }
-
-    }
-
-    private val signInLauncher = registerForActivityResult(FirebaseAuthUIActivityResultContract())
-    { result ->
-        this.onSignInResult(result)
-    }
-
-    private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
-        if (result.resultCode == RESULT_OK) {
-            loadUI()
-        } else {
-            createSignInIntent()
-        }
-    }
-
-    private fun createSignInIntent() {
-        val providers = arrayListOf(AuthUI.IdpConfig.EmailBuilder().build())
-
-        val signInIntent = AuthUI.getInstance()
-            .createSignInIntentBuilder()
-            .setIsSmartLockEnabled(false)
-            .setAvailableProviders(providers)
-            .build()
-        signInLauncher.launch(signInIntent)
-
+        loadUI()
     }
 
     private fun loadUI() {
         val query = FirebaseDatabase.getInstance().reference.child("trinketStore").child("products")
-        val options = FirebaseRecyclerOptions.Builder<Product>().setQuery(query, Product::class.java).build()
+        val options =
+            FirebaseRecyclerOptions.Builder<Product>().setQuery(query, Product::class.java).build()
         adapter = ProductAdapter(options)
 
         val rView: RecyclerView = findViewById(R.id.rView)

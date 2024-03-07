@@ -1,6 +1,7 @@
 package com.example.firebasegroupapp2
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.util.UUID
 

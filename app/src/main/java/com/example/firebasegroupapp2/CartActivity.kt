@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebasegroupapp2.databinding.ActivityCartBinding
+import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -21,30 +24,66 @@ class CartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
+        if (currentUser != null) {
+            binding = ActivityCartBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+            loadUI()
+        }
+    }
+
+    private val signInLauncher = registerForActivityResult(FirebaseAuthUIActivityResultContract())
+    { result ->
+        this.onSignInResult(result)
+    }
+
+    private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
+        if (result.resultCode == RESULT_OK) {
+            loadUI()
+        } else {
+            createSignInIntent()
+        }
+    }
+
+    private fun createSignInIntent() {
+        val providers = arrayListOf(AuthUI.IdpConfig.EmailBuilder().build())
+
+        val signInIntent = AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setIsSmartLockEnabled(false)
+            .setAvailableProviders(providers)
+            .build()
+        signInLauncher.launch(signInIntent)
+
+    }
+
+    private fun loadUI() {
         var uid = ""
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
         if (currentUser == null) {
             val i = Intent(this, ProductActivity::class.java)
             startActivity(i)
         } else {
             uid = currentUser.uid
         }
-
-        binding = ActivityCartBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_cart)
-
-        val query = FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/cartItems")
-        val options = FirebaseRecyclerOptions.Builder<CartItem>().setQuery(query, CartItem::class.java).build()
+        val query =
+            FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/cartItems")
+        val options =
+            FirebaseRecyclerOptions.Builder<CartItem>().setQuery(query, CartItem::class.java)
+                .build()
         adapter = CartAdapter(options)
 
-        FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details").get().addOnSuccessListener { snapshot ->
-            val cart = snapshot.getValue(Cart::class.java)
-            val totalTxt = findViewById<TextView>(R.id.total)
-            val totalItemsTxt = findViewById<TextView>(R.id.totalItems)
-            "Total Items: ${String.format("%.2f", cart?.total)} CAD".also { totalTxt.text = it }
-            "Grand Total: ${String.format("%d", cart?.qty)}".also { totalItemsTxt.text = it }
-        }
+        FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details").get()
+            .addOnSuccessListener { snapshot ->
+                val cart = snapshot.getValue(Cart::class.java)
+                val totalTxt = findViewById<TextView>(R.id.total)
+                val totalItemsTxt = findViewById<TextView>(R.id.totalItems)
+                "Total Items: ${String.format("%.2f", cart?.total)} CAD".also { totalTxt.text = it }
+                "Grand Total: ${String.format("%d", cart?.qty)}".also { totalItemsTxt.text = it }
+            }
 
         val rView: RecyclerView = findViewById(R.id.cartRecyclerView)
 
@@ -61,7 +100,10 @@ class CartActivity : AppCompatActivity() {
             val i = Intent(it.context, ProductActivity::class.java)
             it.context.startActivity(i)
         }
-
+        val logout: Button = findViewById(R.id.logout)
+        logout.setOnClickListener {
+            auth.signOut()
+        }
     }
 
     override fun onStart() {
