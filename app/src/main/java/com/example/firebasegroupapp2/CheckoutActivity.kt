@@ -70,7 +70,7 @@ class CheckoutActivity : AppCompatActivity() {
                         Order(uid, orderId, cart!!.qty, shippingAddress, cart.total)
                     FirebaseDatabase.getInstance().reference.child("trinketStore/order/$orderId/details")
                         .setValue(order)
-                    cartRef.child(it.key!!).removeValue()
+                    cartRef.removeValue()
                 }.addOnFailureListener {
                     Log.e("Firebase Error", "Issues fetching cart data from firebase")
 

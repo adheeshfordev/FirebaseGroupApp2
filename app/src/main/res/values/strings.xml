@@ -87,4 +87,5 @@
     <string name="continue_shopping">Continue Shopping</string>
     <string name="browse_products">Browse Products</string>
     <string name="order_on_the_way">Your order is on the way. Thank you for shopping with us.</string>
+    <string name="no_items_to_display">No items to display</string>
 </resources>
