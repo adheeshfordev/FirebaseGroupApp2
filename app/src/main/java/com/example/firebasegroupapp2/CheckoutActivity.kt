@@ -72,5 +72,19 @@ class CheckoutActivity : AppCompatActivity() {
             val i = Intent(it.context, CheckoutSuccessfulActivity::class.java)
             it.context.startActivity(i)
         }
+
+        val browseProductBtn: Button = findViewById(R.id.browseProductsBtn)
+        browseProductBtn.setOnClickListener {
+
+            val i = Intent(it.context, ProductActivity::class.java)
+            it.context.startActivity(i)
+        }
+
+        val goToCartBtn: Button = findViewById(R.id.goToCartBtn)
+        goToCartBtn.setOnClickListener {
+
+            val i = Intent(it.context, CartActivity::class.java)
+            it.context.startActivity(i)
+        }
     }
 }

@@ -25,6 +25,28 @@
                 android:textAllCaps="true"
                 android:layout_gravity="center"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <Button
+                    android:id="@+id/browseProductsBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/browse_products"/>
+
+                <Button
+                    android:id="@+id/goToCartBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/go_to_cart"/>
+
+            </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -255,8 +277,8 @@
                 android:layout_marginTop="27dp"
                 android:textAllCaps="true"
                 android:hint="@string/checkout_submit"
-                android:theme="@style/Button.White"
                 android:layout_gravity="center"
+                android:background="@drawable/button_style"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"/>
 
