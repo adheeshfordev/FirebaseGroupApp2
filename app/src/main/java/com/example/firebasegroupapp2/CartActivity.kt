@@ -2,6 +2,7 @@ package com.example.firebasegroupapp2
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -38,20 +39,29 @@ class CartActivity : AppCompatActivity() {
         val options = FirebaseRecyclerOptions.Builder<CartItem>().setQuery(query, CartItem::class.java).build()
         adapter = CartAdapter(options)
 
+        val rView: RecyclerView = findViewById(R.id.cartRecyclerView)
+        val btnCheckout: Button = findViewById(R.id.goToCheckout)
+        val totalTxt = findViewById<TextView>(R.id.total)
+        val totalItemsTxt = findViewById<TextView>(R.id.totalItems)
+
         FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details").get().addOnSuccessListener { snapshot ->
             val cart = snapshot.getValue(Cart::class.java)
-            val totalTxt = findViewById<TextView>(R.id.total)
-            val totalItemsTxt = findViewById<TextView>(R.id.totalItems)
+
             "Total Items: ${String.format("%.2f", cart?.total)} CAD".also { totalTxt.text = it }
             "Grand Total: ${String.format("%d", cart?.qty)}".also { totalItemsTxt.text = it }
+            query.get().addOnSuccessListener {
+                if (it.children.count() > 0) {
+                    totalTxt.visibility = View.VISIBLE
+                    totalItemsTxt.visibility = View.VISIBLE
+                    rView.visibility = View.VISIBLE
+                    btnCheckout.visibility = View.VISIBLE
+                    rView.layoutManager = LinearLayoutManager(this)
+                    rView.adapter = adapter
+                }
+            }
+
         }
 
-        val rView: RecyclerView = findViewById(R.id.cartRecyclerView)
-
-        rView.layoutManager = LinearLayoutManager(this)
-        rView.adapter = adapter
-
-        val btnCheckout: Button = findViewById(R.id.goToCheckout)
         btnCheckout.setOnClickListener {
             val i = Intent(it.context, CheckoutActivity::class.java)
             it.context.startActivity(i)

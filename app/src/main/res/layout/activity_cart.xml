@@ -8,10 +8,10 @@
     tools:context=".CartActivity">
 
     <LinearLayout
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,38 +24,46 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cartRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
         <TextView
             android:id="@+id/totalItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            />
+            android:visibility="invisible" />
+
         <TextView
             android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            />
+            android:visibility="invisible" />
+        <TextView
+            android:id="@+id/noItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_items_to_display" />
+
         <LinearLayout
             style="?android:attr/buttonBarStyle"
-            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
             <Button
                 android:id="@+id/returnToProducts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/return_to_products"
-                />
+                android:text="@string/return_to_products" />
 
             <Button
                 android:id="@+id/goToCheckout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text="@string/go_to_checkout" />
+                android:text="@string/go_to_checkout"
+                android:visibility="invisible" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
