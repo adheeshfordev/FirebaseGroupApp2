@@ -1,5 +1,6 @@
 package com.example.firebasegroupapp2
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -53,6 +54,8 @@ class CartAdapter(options: FirebaseRecyclerOptions<CartItem>) :
                         if (cartItemSnapshot != null && cartItemSnapshot.key != null) {
                             //As suggested by Android Studio
                             cartItemRef.child(cartItemSnapshot.key!!).removeValue()
+                            val i = Intent(holder.itemView.context, CartActivity::class.java)
+                            holder.itemView.context.startActivity(i)
                         }
                     }
                 }
