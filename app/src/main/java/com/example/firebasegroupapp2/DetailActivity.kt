@@ -17,13 +17,6 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
-        if (currentUser == null) {
-            val i = Intent(this, ProductActivity::class.java)
-            startActivity(i)
-        }
-
         val productImage: ImageView = findViewById(R.id.Img)
         val nameTxt: TextView = findViewById(R.id.name)
         val priceTxt: TextView = findViewById(R.id.price)
