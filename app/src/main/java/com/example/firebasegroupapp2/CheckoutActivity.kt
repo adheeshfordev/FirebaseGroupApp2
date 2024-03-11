@@ -35,50 +35,101 @@ class CheckoutActivity : AppCompatActivity() {
         val city = findViewById<EditText>(R.id.city)
         val country = findViewById<EditText>(R.id.country)
 
+
+
         //https://kotlinlang.org/docs/strings.html#string-templates
-        val shippingAddress = "${name.text}, ${street.text}, ${city.text}, $country.text email:${email.text}, phone: $phone.text"
+        val shippingAddress =
+            "${name.text}, ${street.text}, ${city.text}, $country.text email:${email.text}, phone: $phone.text"
 
-
-        val checkoutBtn: Button = findViewById(R.id.checkoutBtn)
-        checkoutBtn.setOnClickListener {
-            val cartRef = FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details")
-            cartRef.get()
-                .addOnSuccessListener {
-                    val cart = it.getValue(Cart::class.java)
-                    val orderId = UUID.randomUUID().toString()
-                    val cartItemRef =
-                        FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/cartItems")
-                    cartItemRef.get().addOnSuccessListener {
-                        val cartItemData = it.children
-                        for (cartItemSnapshot in cartItemData) {
-                            val cartItem: CartItem? =
-                                cartItemSnapshot.getValue(CartItem::class.java)
-
-                            val orderItem = OrderItem(orderId,"Product 1",
-                                cartItem!!.qty,
-                                cartItem.price, cartItem.total
-                            )
-                            FirebaseDatabase.getInstance().reference
-                                .child("trinketStore/order/$orderId/orderItem").push().setValue(orderItem)
-                            cartItemRef.child(cartItemSnapshot.key!!).removeValue()
-
-                        }
-                    }.addOnFailureListener {
-                        Log.e("Firebase Error", "Issues fetching cart item data from firebase")
-                    }
-                    val order =
-                        Order(uid, orderId, cart!!.qty, shippingAddress, cart.total)
-                    FirebaseDatabase.getInstance().reference.child("trinketStore/order/$orderId/details")
-                        .setValue(order)
-                    cartRef.removeValue()
-                }.addOnFailureListener {
-                    Log.e("Firebase Error", "Issues fetching cart data from firebase")
-
-                }
-            val i = Intent(it.context, CheckoutSuccessfulActivity::class.java)
+        val browseProductBtn: Button = findViewById(R.id.browseProductsBtn)
+        browseProductBtn.setOnClickListener {
+            val i = Intent(it.context, ProductActivity::class.java)
             it.context.startActivity(i)
         }
 
+        val goToCartBtn: Button = findViewById(R.id.goToCartBtn)
+        goToCartBtn.setOnClickListener {
 
+            val i = Intent(it.context, CartActivity::class.java)
+            it.context.startActivity(i)
+        }
+
+        val checkoutBtn: Button = findViewById(R.id.checkoutBtn)
+        checkoutBtn.setOnClickListener {
+            val hasErrors = validateInput()
+            if (!hasErrors) {
+                createOrder(uid, shippingAddress)
+                val i = Intent(it.context, CheckoutSuccessfulActivity::class.java)
+                it.context.startActivity(i)
+            }
+        }
+    }
+
+    private fun validateInput() : Boolean {
+        var hasErrors = false
+
+        val name = findViewById<EditText>(R.id.name)
+        val email = findViewById<EditText>(R.id.email)
+        val phone = findViewById<EditText>(R.id.phone)
+        val street = findViewById<EditText>(R.id.street)
+        val city = findViewById<EditText>(R.id.city)
+        val country = findViewById<EditText>(R.id.country)
+        val card = findViewById<EditText>(R.id.card)
+        val cvv = findViewById<EditText>(R.id.CVV)
+        val expiry = findViewById<EditText>(R.id.expiry)
+
+
+        val requiredFields = listOf(name, email, phone, street, city, country, card,
+            cvv, expiry)
+        var firstErrorField:EditText? = null
+        for (field in requiredFields) {
+            if (field.text.isNullOrEmpty()) {
+                field.error = "Field is required"
+                if (firstErrorField == null) firstErrorField = field
+                hasErrors = true
+            }
+        }
+
+        if (firstErrorField != null)  firstErrorField.requestFocus()
+
+        return hasErrors
+    }
+    private fun createOrder(uid: String, shippingAddress: String) {
+        val cartRef =
+            FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details")
+        cartRef.get()
+            .addOnSuccessListener {
+                val cart = it.getValue(Cart::class.java)
+                val orderId = UUID.randomUUID().toString()
+                val cartItemRef =
+                    FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/cartItems")
+                cartItemRef.get().addOnSuccessListener {
+                    val cartItemData = it.children
+                    for (cartItemSnapshot in cartItemData) {
+                        val cartItem: CartItem? =
+                            cartItemSnapshot.getValue(CartItem::class.java)
+
+                        val orderItem = OrderItem(
+                            orderId, cartItem?.name?:"Product",
+                            cartItem!!.qty,
+                            cartItem.price, cartItem.total
+                        )
+                        FirebaseDatabase.getInstance().reference
+                            .child("trinketStore/order/$uid/userOrders/$orderId/orderItems").push()
+                            .setValue(orderItem)
+                        cartItemRef.child(cartItemSnapshot.key!!).removeValue()
+
+                    }
+                }.addOnFailureListener {
+                    Log.e("Firebase Error", "Issues fetching cart item data from firebase")
+                }
+                val order =
+                    Order(uid, orderId, cart!!.qty, shippingAddress, cart.total)
+                FirebaseDatabase.getInstance().reference.child("trinketStore/order/$uid/userOrders/$orderId/details")
+                    .setValue(order)
+                cartRef.removeValue()
+            }.addOnFailureListener {
+                Log.e("Firebase Error", "Issues fetching cart data from firebase")
+            }
     }
 }

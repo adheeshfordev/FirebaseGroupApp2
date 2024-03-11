@@ -30,6 +30,7 @@ class Common {
                         cartItemRef.child(product.pid).setValue(
                             CartItem(
                                 cartId,
+                                product.name,
                                 product.price * qty, qty, product.pid, product.price
                             )
                         )

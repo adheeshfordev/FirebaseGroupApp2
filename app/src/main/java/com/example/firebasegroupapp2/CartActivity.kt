@@ -2,6 +2,7 @@ package com.example.firebasegroupapp2
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +14,10 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class CartActivity : AppCompatActivity() {
 
@@ -78,14 +82,19 @@ class CartActivity : AppCompatActivity() {
                 .build()
         adapter = CartAdapter(options)
 
-        FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details").get()
-            .addOnSuccessListener { snapshot ->
+        FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details").addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
                 val cart = snapshot.getValue(Cart::class.java)
                 val totalTxt = findViewById<TextView>(R.id.total)
                 val totalItemsTxt = findViewById<TextView>(R.id.totalItems)
                 "Total Items: ${String.format("%.2f", cart?.total)} CAD".also { totalTxt.text = it }
                 "Grand Total: ${String.format("%d", cart?.qty)}".also { totalItemsTxt.text = it }
             }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.i("MyApp", "Upload cancelled")
+            }
+        })
 
         val rView: RecyclerView = findViewById(R.id.cartRecyclerView)
 
