@@ -113,9 +113,7 @@ class CartActivity : AppCompatActivity() {
         }
         val logout: Button = findViewById(R.id.logout)
         logout.setOnClickListener {
-            auth.signOut()
-            val i = Intent(it.context, ProductActivity::class.java)
-            it.context.startActivity(i)
+            Common.signOut(auth,it)
         }
     }
 
