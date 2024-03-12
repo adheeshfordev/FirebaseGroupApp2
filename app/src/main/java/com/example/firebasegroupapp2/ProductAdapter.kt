@@ -3,8 +3,10 @@ package com.example.firebasegroupapp2
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -24,6 +26,7 @@ class ProductAdapter(options: FirebaseRecyclerOptions<Product>) :
         val price: TextView = itemView.findViewById(R.id.price)
         val viewDetails: Button = itemView.findViewById(R.id.viewDetails)
         val addToCart: Button = itemView.findViewById(R.id.addToCart)
+        val qty: Spinner = itemView.findViewById(R.id.qty)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -42,6 +45,18 @@ class ProductAdapter(options: FirebaseRecyclerOptions<Product>) :
         } else {
             Glide.with(holder.productImage.context).load(theImage).into(holder.productImage)
         }
+
+        ArrayAdapter.createFromResource(
+            holder.itemView.context,
+            R.array.product_qty,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+            holder.qty.adapter = adapter
+        }
+
         holder.viewDetails.setOnClickListener {
             val i = Intent(it.context, DetailActivity::class.java)
             i.putExtra("productImg", theImage)
@@ -54,7 +69,7 @@ class ProductAdapter(options: FirebaseRecyclerOptions<Product>) :
         holder.addToCart.setOnClickListener {
             val i = Intent(it.context, CartActivity::class.java)
             auth = FirebaseAuth.getInstance()
-            Common.addToCart(auth.currentUser?.uid, model)
+            Common.addToCart(auth.currentUser?.uid, model, holder.qty.selectedItem.toString().toIntOrNull() ?: 1)
 
             it.context.startActivity(i)
         }

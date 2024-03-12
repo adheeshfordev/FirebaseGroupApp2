@@ -3,8 +3,10 @@ package com.example.firebasegroupapp2
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -29,6 +31,17 @@ class DetailActivity : AppCompatActivity() {
         val pid = intent.getStringExtra("pid") ?: "1"
         val price = intent.getDoubleExtra("price", 0.00)
         val description = intent.getStringExtra("description")
+        val qty: Spinner = findViewById(R.id.qty)
+        ArrayAdapter.createFromResource(
+           this,
+            R.array.product_qty,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+            qty.adapter = adapter
+        }
         if (!theImage.isNullOrBlank()) {
             if (theImage.indexOf("gs://") > -1) {
                 val storageReference = FirebaseStorage.getInstance()
@@ -49,7 +62,7 @@ class DetailActivity : AppCompatActivity() {
             /*Initialized only using the necessary values. !! used as suggested by Android Studio
              to fix warnings*/
             val product = Product(name!!, price, 0, theImage!!, pid, "")
-            Common.addToCart(auth.currentUser?.uid,product)
+            Common.addToCart(auth.currentUser?.uid,product, qty.selectedItem.toString().toIntOrNull() ?: 1)
             it.context.startActivity(i)
         }
         val returnToProducts: Button = findViewById(R.id.returnToProducts)
