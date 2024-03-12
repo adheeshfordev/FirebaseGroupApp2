@@ -86,8 +86,8 @@ class CartActivity : AppCompatActivity() {
                 val cart = snapshot.getValue(Cart::class.java)
                 val totalTxt = findViewById<TextView>(R.id.total)
                 val totalItemsTxt = findViewById<TextView>(R.id.totalItems)
-                "Total Items: ${String.format("%.2f", cart?.total)} CAD".also { totalTxt.text = it }
-                "Grand Total: ${String.format("%d", cart?.qty)}".also { totalItemsTxt.text = it }
+                "Total Items: ${String.format("%.2f", cart?.total ?: 0.00)} CAD".also { totalTxt.text = it }
+                "Grand Total: ${String.format("%d", cart?.qty ?: 0)}".also { totalItemsTxt.text = it }
             }
 
             override fun onCancelled(error: DatabaseError) {
