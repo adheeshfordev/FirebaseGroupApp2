@@ -70,7 +70,7 @@ class ProductAdapter(options: FirebaseRecyclerOptions<Product>) :
             val qty = holder.qty.selectedItem.toString().toIntOrNull() ?: 1
             Common.addToCart(auth.currentUser?.uid, model, qty)
             Toast.makeText(holder.itemView.context,
-                "Added $qty item(s) to Cart", Toast.LENGTH_LONG).show()
+                "Added $qty item(s) to Cart", Toast.LENGTH_SHORT).show()
         }
     }
 

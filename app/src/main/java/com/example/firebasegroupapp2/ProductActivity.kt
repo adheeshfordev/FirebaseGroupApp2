@@ -47,10 +47,19 @@ class ProductActivity : AppCompatActivity() {
         rView.adapter = adapter
 
         val goToCart = findViewById<Button>(R.id.goToCart)
+        val goToCart2 = findViewById<Button>(R.id.goToCart2)
         goToCart.setOnClickListener {
-            val i = Intent(it.context, CartActivity::class.java)
-            it.context.startActivity(i)
+            redirectToCart(it)
         }
+        goToCart2.setOnClickListener {
+            redirectToCart(it)
+        }
+
+    }
+
+    private fun redirectToCart(it: View) {
+        val i = Intent(it.context, CartActivity::class.java)
+        it.context.startActivity(i)
     }
 
     override fun onStart() {
