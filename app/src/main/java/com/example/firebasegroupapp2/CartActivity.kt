@@ -47,7 +47,8 @@ class CartActivity : AppCompatActivity() {
 
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
         if (result.resultCode == RESULT_OK) {
-            loadUI()
+            val i = Intent(this, ProductActivity::class.java)
+            startActivity(i)
         } else {
             createSignInIntent()
         }
