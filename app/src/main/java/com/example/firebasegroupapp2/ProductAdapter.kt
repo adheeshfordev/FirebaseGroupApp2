@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.firebase.ui.database.FirebaseRecyclerAdapter
@@ -65,10 +66,11 @@ class ProductAdapter(options: FirebaseRecyclerOptions<Product>) :
             navigateToDetails(it, theImage, model)
         }
         holder.addToCart.setOnClickListener {
-            val i = Intent(it.context, CartActivity::class.java)
             auth = FirebaseAuth.getInstance()
-            Common.addToCart(auth.currentUser?.uid, model, holder.qty.selectedItem.toString().toIntOrNull() ?: 1)
-            it.context.startActivity(i)
+            val qty = holder.qty.selectedItem.toString().toIntOrNull() ?: 1
+            Common.addToCart(auth.currentUser?.uid, model, qty)
+            Toast.makeText(holder.itemView.context,
+                "Added $qty item(s) to Cart", Toast.LENGTH_LONG).show()
         }
     }
 
