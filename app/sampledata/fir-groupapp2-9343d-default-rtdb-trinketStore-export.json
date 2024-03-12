@@ -1,0 +1,201 @@
+{
+  "cart": {
+    "dwd02IOhxhS2dOFgxpryomH7Otq1": {
+      "cartItems": {
+        "pid1": {
+          "cartId": "05a0ef2a-249b-464f-8d02-f132440f8e19",
+          "pid": "pid1",
+          "price": 50,
+          "qty": 2,
+          "total": 100
+        }
+      },
+      "details": {
+        "cartId": "57148207-e615-4f8e-8bf8-1d0e3064592d",
+        "qty": 2,
+        "total": 100,
+        "uid": "dwd02IOhxhS2dOFgxpryomH7Otq1"
+      }
+    }
+  },
+  "order": {
+    "uI3L7gkYa8ehqQXXyNhrrNORQrD3": {
+      "userOrders": {
+        "49eff9e6-3f99-4822-9a79-e8c472eecf7e": {
+          "details": {
+            "name": "49eff9e6-3f99-4822-9a79-e8c472eecf7e",
+            "qty": 4,
+            "shippingAddress": "Adheesh, 31 Farringford Drive, Brantford, Canada email:adheeshlp@gmail.com, phone: 98989898",
+            "total": 116.97999999999999,
+            "uid": "uI3L7gkYa8ehqQXXyNhrrNORQrD3"
+          },
+          "orderItems": {
+            "-NsoGecWP3MD2IM6OZx3": {
+              "oid": "49eff9e6-3f99-4822-9a79-e8c472eecf7e",
+              "price": 50,
+              "productName": "Dreamcatcher",
+              "qty": 1,
+              "total": 50
+            },
+            "-NsoGecYS8ZgDFvH6UzZ": {
+              "oid": "49eff9e6-3f99-4822-9a79-e8c472eecf7e",
+              "price": 25,
+              "productName": "Miniature Xmas tree",
+              "qty": 1,
+              "total": 25
+            },
+            "-NsoGecfE9-g_D5Jp4rX": {
+              "oid": "49eff9e6-3f99-4822-9a79-e8c472eecf7e",
+              "price": 20.99,
+              "productName": "Tiny Handcut Gem stone",
+              "qty": 2,
+              "total": 41.98
+            }
+          }
+        },
+        "7153d31b-776f-400c-a2e7-ac6fdb46fa44": {
+          "details": {
+            "name": "7153d31b-776f-400c-a2e7-ac6fdb46fa44",
+            "qty": 4,
+            "shippingAddress": "Adheesh, 31 Farringford Drive, Brantford, Canada email:adheeshlp@gmail.com, phone: 4375596938",
+            "total": 118.97,
+            "uid": "uI3L7gkYa8ehqQXXyNhrrNORQrD3"
+          },
+          "orderItems": {
+            "-Nso5uok0HVKbDE9L21m": {
+              "oid": "7153d31b-776f-400c-a2e7-ac6fdb46fa44",
+              "price": 50,
+              "productName": "Dreamcatcher",
+              "qty": 1,
+              "total": 50
+            },
+            "-Nso5uooo60hwxR4-lNx": {
+              "oid": "7153d31b-776f-400c-a2e7-ac6fdb46fa44",
+              "price": 22.99,
+              "productName": "Hanging lanterns",
+              "qty": 3,
+              "total": 68.97
+            }
+          }
+        },
+        "f6b0dc9e-434e-45f1-abdf-ebffa86cc4b0": {
+          "details": {
+            "name": "f6b0dc9e-434e-45f1-abdf-ebffa86cc4b0",
+            "qty": 4,
+            "shippingAddress": "Adheesh, adadasdasd, Brantford, Canada email:adheeshlp@gmail.com, phone: 54625",
+            "total": 150,
+            "uid": "uI3L7gkYa8ehqQXXyNhrrNORQrD3"
+          },
+          "orderItems": {
+            "-NsoF4SSoe6dFOPeFrbo": {
+              "oid": "f6b0dc9e-434e-45f1-abdf-ebffa86cc4b0",
+              "price": 50,
+              "productName": "Dreamcatcher",
+              "qty": 2,
+              "total": 100
+            },
+            "-NsoF4SWQRb9FYc1qrdE": {
+              "oid": "f6b0dc9e-434e-45f1-abdf-ebffa86cc4b0",
+              "price": 25,
+              "productName": "Miniature Xmas tree",
+              "qty": 2,
+              "total": 50
+            }
+          }
+        }
+      }
+    }
+  },
+  "products": {
+    "pid1": {
+      "description": "Beautiful Dreamcatcher made of real feathers. Goodbye bad vibes!",
+      "img": "gs://fir-groupapp2-9343d.appspot.com/tran-phu-KkFtc6HRCXE-unsplash.jpg",
+      "name": "Dreamcatcher",
+      "pid": "pid1",
+      "price": 50,
+      "qtyAvailable": 50,
+      "sku": "DRMCTCHR1"
+    },
+    "pid10": {
+      "description": "All the festival vibes can now fit on your table top",
+      "img": "gs://fir-groupapp2-9343d.appspot.com/kari-shea-ldug4RlsWRA-unsplash.jpg",
+      "name": "Miniature Xmas tree",
+      "pid": "pid10",
+      "price": 25,
+      "qtyAvailable": 10,
+      "sku": "MNTRXMSTREE1"
+    },
+    "pid2": {
+      "description": "A beautiful gem stone for a beautiful person - You!",
+      "img": "gs://fir-groupapp2-9343d.appspot.com/kayla-maurais-mPN0Kbsyw4c-unsplash.jpg",
+      "name": "Tiny Handcut Gem stone",
+      "pid": "pid2",
+      "price": 20.99,
+      "qtyAvailable": 20,
+      "sku": "TNYHNDCT1"
+    },
+    "pid3": {
+      "description": "Reminisce the good ol' times! Capture all the wonder of the roaring twenties when the wheeled beauties first captured the hearts of Canada",
+      "img": "gs://fir-groupapp2-9343d.appspot.com/yusuf-onuk-db5EgEevAAQ-unsplash.jpg",
+      "name": "Miniature Vintage Car",
+      "pid": "pid3",
+      "price": 21.99,
+      "qtyAvailable": 30,
+      "sku": "MNTRVNTGCR1"
+    },
+    "pid4": {
+      "description": "Gawk! Gawk! Just a beautiful flamingo peeking through your window",
+      "img": "gs://fir-groupapp2-9343d.appspot.com/basil-minhaj-Q7W_YQTAF1w-unsplash.jpg",
+      "name": "Flamingo",
+      "pid": "pid4",
+      "price": 30,
+      "qtyAvailable": 15,
+      "sku": "FLMNGO1"
+    },
+    "pid5": {
+      "description": "Great ready for the Christmas season with these beautiful seasons!",
+      "img": "gs://fir-groupapp2-9343d.appspot.com/joey-genovese-ZrFDGbt04-4-unsplash.jpg",
+      "name": "Xmas Bauble",
+      "pid": "pid5",
+      "price": 20.05,
+      "qtyAvailable": 18,
+      "sku": "XMSBBL1"
+    },
+    "pid6": {
+      "description": "Surround yourself with the beautiful aromas of these sceneted candles.",
+      "img": "gs://fir-groupapp2-9343d.appspot.com/rendy-novantino-9rjZpnigYhk-unsplash.jpg",
+      "name": "Scented Candle",
+      "pid": "pid6",
+      "price": 34.09,
+      "qtyAvailable": 50,
+      "sku": "SCNTDCNDL1"
+    },
+    "pid7": {
+      "description": "This season, a new star has appeared, not in the horizon, but your home. ",
+      "img": "gs://fir-groupapp2-9343d.appspot.com/markus-spiske-jO_EzFFRoNw-unsplash.jpg",
+      "name": "Star decoration",
+      "pid": "pid7",
+      "price": 30,
+      "qtyAvailable": 12,
+      "sku": "STRDCRTN1"
+    },
+    "pid8": {
+      "description": "A human figurine. Probably a monk? We don't know. It's pretty",
+      "img": "gs://fir-groupapp2-9343d.appspot.com/larisa-birta-9SiNubeMbEs-unsplash.jpg",
+      "name": "Figurine",
+      "pid": "pid8",
+      "price": 40,
+      "qtyAvailable": 5,
+      "sku": "FGRN1"
+    },
+    "pid9": {
+      "description": "Ring in the Chinese New Year with these beautiful hanging lanterns",
+      "img": "gs://fir-groupapp2-9343d.appspot.com/engin-akyurt-kFob7GkNzbY-unsplash.jpg",
+      "name": "Hanging lanterns",
+      "pid": "pid9",
+      "price": 22.99,
+      "qtyAvailable": 10,
+      "sku": "HNGLNTRN1"
+    }
+  }
+}
