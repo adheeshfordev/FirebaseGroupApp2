@@ -3,6 +3,7 @@ package com.example.firebasegroupapp2
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
@@ -19,7 +20,13 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+        val logout: Button = findViewById(R.id.logoutBtn)
         auth = FirebaseAuth.getInstance()
+        if (auth.currentUser?.uid.isNullOrEmpty()) {
+            logout.visibility = View.GONE
+        } else {
+            logout.visibility = View.VISIBLE
+        }
 
         val productImage: ImageView = findViewById(R.id.Img)
         val nameTxt: TextView = findViewById(R.id.name)
@@ -69,6 +76,10 @@ class DetailActivity : AppCompatActivity() {
         returnToProducts.setOnClickListener {
             val i = Intent(it.context, ProductActivity::class.java)
             it.context.startActivity(i)
+        }
+
+        logout.setOnClickListener {
+            Common.signOut(auth,it)
         }
 
 

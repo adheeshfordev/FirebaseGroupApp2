@@ -3,7 +3,9 @@ package com.example.firebasegroupapp2
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -18,6 +20,20 @@ class ProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
         loadUI()
+        val logout: Button = findViewById(R.id.logoutBtn)
+        auth = FirebaseAuth.getInstance()
+        if (auth.currentUser?.uid.isNullOrEmpty()) {
+            logout.visibility = View.GONE
+        } else {
+            logout.visibility = View.VISIBLE
+            val welcomeTxt:TextView = findViewById(R.id.welcomeTxt)
+            "Welcome ${auth.currentUser?.displayName}".also { welcomeTxt.text = it }
+        }
+
+
+        logout.setOnClickListener {
+            Common.signOut(auth,it)
+        }
     }
 
     private fun loadUI() {

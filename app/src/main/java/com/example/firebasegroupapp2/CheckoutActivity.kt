@@ -64,6 +64,11 @@ class CheckoutActivity : AppCompatActivity() {
                 it.context.startActivity(i)
             }
         }
+
+        val logout: Button = findViewById(R.id.logoutBtn)
+        logout.setOnClickListener {
+            Common.signOut(auth,it)
+        }
     }
 
     private fun validateInput() : Boolean {

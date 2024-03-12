@@ -25,6 +25,13 @@
                 android:textStyle="bold"
                 android:textAllCaps="true"
                 android:layout_gravity="center"/>
+            <Button
+                android:id="@+id/logoutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/logout"
+                tools:ignore="ButtonStyle" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -278,11 +285,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="27dp"
-                android:textAllCaps="true"
                 android:hint="@string/checkout_submit"
-                android:layout_gravity="center"
-                android:background="@drawable/button_style"
-                android:textStyle="bold"/>
+                android:layout_gravity="center" />
 
         </LinearLayout>
 

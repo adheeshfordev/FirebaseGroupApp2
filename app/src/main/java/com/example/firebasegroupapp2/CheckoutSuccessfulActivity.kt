@@ -26,5 +26,10 @@ class CheckoutSuccessfulActivity : AppCompatActivity() {
             val i = Intent(it.context, ProductActivity::class.java)
             it.context.startActivity(i)
         }
+
+        val logout: Button = findViewById(R.id.logoutBtn)
+        logout.setOnClickListener {
+            Common.signOut(auth,it)
+        }
     }
 }
