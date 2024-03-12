@@ -1,8 +1,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <!-- https://m2.material.io/components/text-fields/android#using-text-fields -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,14 +37,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/browse_products"/>
+                    android:text="@string/browse_products"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:id="@+id/goToCartBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/go_to_cart"/>
+                    android:text="@string/go_to_cart"
+                    tools:ignore="ButtonStyle" />
 
             </LinearLayout>
 
@@ -240,7 +243,7 @@
                     android:ems="12"
                     android:importantForAutofill="no"
                     android:inputType="text"
-                    android:maxLength="4"/>
+                    android:maxLength="5"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

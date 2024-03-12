@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import com.example.firebaseprojectgroup2.Order
@@ -90,7 +91,19 @@ class CheckoutActivity : AppCompatActivity() {
             }
         }
 
-        if (firstErrorField != null)  firstErrorField.requestFocus()
+        if (!Patterns.EMAIL_ADDRESS.matcher(email.text).find()) {
+            if (firstErrorField == null) {
+                firstErrorField = email
+                email.error = "Email format is not valid"
+            }
+            hasErrors = true
+        }
+
+        if (!Patterns.PHONE.matcher(phone.text).find()){
+            firstErrorField = phone
+            phone.error = "Phone format is not valid"
+        }
+        firstErrorField?.requestFocus()
 
         return hasErrors
     }
