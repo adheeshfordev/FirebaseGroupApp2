@@ -27,13 +27,9 @@ class CartActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            binding = ActivityCartBinding.inflate(layoutInflater)
-            setContentView(binding.root)
             loadUI()
         } else {
             createSignInIntent()
@@ -68,11 +64,12 @@ class CartActivity : AppCompatActivity() {
 
     private fun loadUI() {
         var uid = ""
+        binding = ActivityCartBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         if (currentUser == null) {
-            val i = Intent(this, ProductActivity::class.java)
-            startActivity(i)
+            loadUI()
         } else {
             uid = currentUser.uid
         }
@@ -83,7 +80,8 @@ class CartActivity : AppCompatActivity() {
                 .build()
         adapter = CartAdapter(options)
 
-        FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details").addListenerForSingleValueEvent(object: ValueEventListener {
+        FirebaseDatabase.getInstance().reference.child("trinketStore/cart/$uid/details")
+            .addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val cart = snapshot.getValue(Cart::class.java)
                 val totalTxt = findViewById<TextView>(R.id.total)

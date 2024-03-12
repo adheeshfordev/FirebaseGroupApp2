@@ -282,7 +282,6 @@
                 android:hint="@string/checkout_submit"
                 android:layout_gravity="center"
                 android:background="@drawable/button_style"
-                android:textColor="#FFFFFF"
                 android:textStyle="bold"/>
 
         </LinearLayout>

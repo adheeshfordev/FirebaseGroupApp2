@@ -62,12 +62,12 @@
     <string name="label_for_city">City</string>
     <string name="city_hint">Please enter city</string>
     <string name="country_hint">Please enter country</string>
-    <string name="card_details">card details</string>
-    <string name="card_number_hint">please enter card number</string>
-    <string name="label_for_expiry">expiry</string>
-    <string name="expiry_date_hint">please enter expiry date</string>
-    <string name="cvv_hint">please enter cvv</string>
-    <string name="checkout_submit">checkout</string>
+    <string name="card_details">Card Details</string>
+    <string name="card_number_hint">Please enter card number</string>
+    <string name="label_for_expiry">Expiry</string>
+    <string name="expiry_date_hint">Please enter expiry date</string>
+    <string name="cvv_hint">Please enter cvv</string>
+    <string name="checkout_submit">Checkout</string>
     <string name="trinket_store">Trinket Store</string>
     <string name="trinket_store_logo">Trinket Store Logo</string>
     <string name="product_image">Product Image</string>
@@ -89,4 +89,5 @@
     <string name="order_on_the_way">Your order is on the way. Thank you for shopping with us.</string>
     <string name="no_items_to_display">No items to display</string>
     <string name="logout">Logout</string>
+    <string name="quantity">Qty:</string>
 </resources>

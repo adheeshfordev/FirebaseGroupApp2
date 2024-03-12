@@ -11,6 +11,7 @@ import com.example.firebaseprojectgroup2.Order
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.util.UUID
+import java.util.regex.Pattern
 
 class CheckoutActivity : AppCompatActivity() {
 
@@ -36,12 +37,6 @@ class CheckoutActivity : AppCompatActivity() {
         val city = findViewById<EditText>(R.id.city)
         val country = findViewById<EditText>(R.id.country)
 
-
-
-        //https://kotlinlang.org/docs/strings.html#string-templates
-        val shippingAddress =
-            "${name.text}, ${street.text}, ${city.text}, $country.text email:${email.text}, phone: $phone.text"
-
         val browseProductBtn: Button = findViewById(R.id.browseProductsBtn)
         browseProductBtn.setOnClickListener {
             val i = Intent(it.context, ProductActivity::class.java)
@@ -58,6 +53,11 @@ class CheckoutActivity : AppCompatActivity() {
         val checkoutBtn: Button = findViewById(R.id.checkoutBtn)
         checkoutBtn.setOnClickListener {
             val hasErrors = validateInput()
+            //https://kotlinlang.org/docs/strings.html#string-templates
+            val shippingAddress =
+                "${name.text}, ${street.text}, ${city.text}, " +
+                        "${country.text} email:${email.text}, phone: ${phone.text}"
+
             if (!hasErrors) {
                 createOrder(uid, shippingAddress)
                 val i = Intent(it.context, CheckoutSuccessfulActivity::class.java)
@@ -91,6 +91,7 @@ class CheckoutActivity : AppCompatActivity() {
             }
         }
 
+        /* https://developer.android.com/reference/android/util/Patterns */
         if (!Patterns.EMAIL_ADDRESS.matcher(email.text).find()) {
             if (firstErrorField == null) {
                 firstErrorField = email
@@ -100,8 +101,26 @@ class CheckoutActivity : AppCompatActivity() {
         }
 
         if (!Patterns.PHONE.matcher(phone.text).find()){
-            firstErrorField = phone
+            if (firstErrorField == null) {
+                firstErrorField = phone
+            }
             phone.error = "Phone format is not valid"
+            hasErrors = true
+        }
+        if (!Pattern.matches("[0-9]{16}", card.text) &&
+            !Pattern.matches("[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}", card.text)){
+            if (firstErrorField == null) {
+                firstErrorField = card
+            }
+            card.error = "Card format is not valid"
+            hasErrors = true
+        }
+        if (!Pattern.matches("[0-9]{2}/[0-9]{2}", expiry.text)){
+            if (firstErrorField == null) {
+                firstErrorField = expiry
+            }
+            expiry.error = "Expiry format is not valid. Use mm/yy"
+            hasErrors = true
         }
         firstErrorField?.requestFocus()
 

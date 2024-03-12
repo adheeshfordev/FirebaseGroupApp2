@@ -70,7 +70,6 @@ class ProductAdapter(options: FirebaseRecyclerOptions<Product>) :
             val i = Intent(it.context, CartActivity::class.java)
             auth = FirebaseAuth.getInstance()
             Common.addToCart(auth.currentUser?.uid, model, holder.qty.selectedItem.toString().toIntOrNull() ?: 1)
-
             it.context.startActivity(i)
         }
     }
