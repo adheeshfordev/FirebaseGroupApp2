@@ -2,6 +2,7 @@ package com.example.firebasegroupapp2
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -58,13 +59,10 @@ class ProductAdapter(options: FirebaseRecyclerOptions<Product>) :
         }
 
         holder.viewDetails.setOnClickListener {
-            val i = Intent(it.context, DetailActivity::class.java)
-            i.putExtra("productImg", theImage)
-            i.putExtra("name", model.name)
-            i.putExtra("price", model.price)
-            i.putExtra("pid", model.pid)
-            i.putExtra("description", model.description)
-            it.context.startActivity(i)
+            navigateToDetails(it, theImage, model)
+        }
+        holder.productImage.setOnClickListener {
+            navigateToDetails(it, theImage, model)
         }
         holder.addToCart.setOnClickListener {
             val i = Intent(it.context, CartActivity::class.java)
@@ -72,5 +70,19 @@ class ProductAdapter(options: FirebaseRecyclerOptions<Product>) :
             Common.addToCart(auth.currentUser?.uid, model, holder.qty.selectedItem.toString().toIntOrNull() ?: 1)
             it.context.startActivity(i)
         }
+    }
+
+    private fun navigateToDetails(
+        it: View,
+        theImage: String,
+        model: Product
+    ) {
+        val i = Intent(it.context, DetailActivity::class.java)
+        i.putExtra("productImg", theImage)
+        i.putExtra("name", model.name)
+        i.putExtra("price", model.price)
+        i.putExtra("pid", model.pid)
+        i.putExtra("description", model.description)
+        it.context.startActivity(i)
     }
 }

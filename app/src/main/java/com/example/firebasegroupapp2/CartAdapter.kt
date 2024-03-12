@@ -65,6 +65,8 @@ class CartAdapter(options: FirebaseRecyclerOptions<CartItem>) :
             }
         }
 
+
+
         productDb.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val product = snapshot.getValue(Product::class.java)
@@ -86,6 +88,16 @@ class CartAdapter(options: FirebaseRecyclerOptions<CartItem>) :
                         Glide.with(holder.productImage.context).load(theImage)
                             .into(holder.productImage)
                     }
+                }
+
+                holder.productImage.setOnClickListener {
+                    val i = Intent(it.context, DetailActivity::class.java)
+                    i.putExtra("productImg", theImage)
+                    i.putExtra("name", product?.name)
+                    i.putExtra("price", product?.price)
+                    i.putExtra("pid", product?.pid)
+                    i.putExtra("description", product?.description)
+                    it.context.startActivity(i)
                 }
             }
 
